@@ -189,8 +189,8 @@ function createMeenakshiTemple(){
 function init(){
  scene=new THREE.Scene();
  scene.background=new THREE.Color(0x9fb8c8);
- camera=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.01,100);
- camera.position.set(7.8,5.3,9.5);camera.lookAt(0,1.8,0);
+ camera=new THREE.PerspectiveCamera(42,innerWidth/innerHeight,.01,100);
+ camera.position.set(0,4.2,13.5);camera.lookAt(0,2.35,0);
 
  renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
@@ -203,7 +203,7 @@ function init(){
  const sun=new THREE.DirectionalLight(0xffffff,2.5);sun.position.set(5,9,6);scene.add(sun);
  const fill=new THREE.DirectionalLight(0xdde9ff,.7);fill.position.set(-5,4,-4);scene.add(fill);
 
- monument=createMeenakshiTemple();scene.add(monument);monument.scale.setScalar(.46);
+ monument=createMeenakshiTemple();scene.add(monument);monument.scale.setScalar(.28);
 
  status.textContent="Desktop 3D Mode — drag to rotate, scroll to zoom.";
  renderer.setAnimationLoop((time,frame)=>{
@@ -256,7 +256,7 @@ function handleARFrame(frame){
      if(pose){
        monument.position.set(pose.transform.position.x,pose.transform.position.y,pose.transform.position.z);
        monument.visible=true;
-       status.textContent="Surface detected — tap the screen to place the Taj Mahal.";
+       status.textContent="Table detected — tap once to place the complete temple.";
      }
    }
  }
@@ -264,11 +264,11 @@ function handleARFrame(frame){
 
 function scaleModel(f){
  modelScale=Math.max(.25,Math.min(3,modelScale*f));
- monument.scale.setScalar(.46*modelScale);
+ monument.scale.setScalar(.28*modelScale);
 }
 function reset(){
- modelScale=1;monument.scale.setScalar(.46);monument.rotation.set(0,0,0);
- monument.position.set(0,0,0);camera.position.set(7.8,5.3,9.5);camera.lookAt(0,1.8,0);
+ modelScale=1;monument.scale.setScalar(.28);monument.rotation.set(0,0,0);
+ monument.position.set(0,0,0);camera.position.set(0,4.2,13.5);camera.lookAt(0,2.35,0);
  status.textContent=xrSession?"AR active.":"Desktop 3D Mode — drag to rotate, scroll to zoom.";
 }
 
@@ -299,8 +299,7 @@ window.addEventListener("pointerdown",e=>{
 window.addEventListener("pointermove",e=>{
  if(!dragging||xrSession)return;
  monument.rotation.y+=(e.clientX-lastX)*.008;
- monument.rotation.x+=((e.clientY-lastY)*.004);
- monument.rotation.x=Math.max(-.45,Math.min(.45,monument.rotation.x));
+ monument.rotation.x=0;
  lastX=e.clientX;lastY=e.clientY;
 });
 window.addEventListener("pointerup",()=>dragging=false);
