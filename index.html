@@ -2,1902 +2,313 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-
-<title>AR Taj Mahal | Multimedia EX7</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>AR Meenakshi Amman Temple | Multimedia EX7</title>
 <style>
-* {
-    box-sizing: border-box;
-}
-
-html, body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-    background: #101820;
-    color: white;
-}
-
-canvas {
-    display: block;
-}
-
-#top {
-    position: fixed;
-    z-index: 10;
-    left: 0;
-    right: 0;
-    top: 0;
-    padding: 16px 18px;
-    pointer-events: none;
-    background: linear-gradient(
-        rgba(0,0,0,.78),
-        transparent
-    );
-}
-
-#top h1 {
-    margin: 0 0 4px;
-    font-size: 23px;
-}
-
-#top p {
-    margin: 0;
-    font-size: 13px;
-    opacity: .9;
-}
-
-#status {
-    position: fixed;
-    z-index: 30;
-    top: 78px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0,0,0,.75);
-    padding: 10px 15px;
-    border-radius: 20px;
-    font-size: 12px;
-    text-align: center;
-    max-width: 92%;
-}
-
-#help {
-    position: fixed;
-    z-index: 12;
-    right: 14px;
-    top: 14px;
-    background: rgba(0,0,0,.55);
-    padding: 8px 11px;
-    border-radius: 10px;
-    font-size: 11px;
-}
-
-#controls {
-    position: fixed;
-    z-index: 50;
-    bottom: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 7px;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 97%;
-}
-
-button {
-    border: 0;
-    border-radius: 12px;
-    padding: 11px 13px;
-    font-size: 13px;
-    font-weight: bold;
-    background: white;
-    color: #222;
-    box-shadow: 0 3px 12px #0008;
-}
-
-button:disabled {
-    opacity: .45;
-}
-
-#info,
-#timeline {
-    display: none;
-    position: fixed;
-    z-index: 40;
-    left: 5%;
-    right: 5%;
-    bottom: 90px;
-    max-height: 62vh;
-    overflow: auto;
-    background: #101010ee;
-    padding: 19px;
-    border-radius: 18px;
-}
-
-#info h2,
-#timeline h2 {
-    margin-top: 0;
-}
-
-#info p,
-#timeline p {
-    line-height: 1.5;
-}
-
-.card {
-    padding: 10px 0;
-    border-bottom: 1px solid #ffffff22;
-}
-
-/* AR placement reticle */
-#reticle {
-    position: fixed;
-    z-index: 25;
-    width: 70px;
-    height: 70px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    display: none;
-    pointer-events: none;
-}
-
-.reticle-circle {
-    width: 70px;
-    height: 70px;
-    border: 3px solid #00ff88;
-    border-radius: 50%;
-    box-shadow: 0 0 12px #00ff88;
-}
-
-.reticle-cross-horizontal {
-    position: absolute;
-    width: 90px;
-    height: 2px;
-    background: #00ff88;
-    left: -10px;
-    top: 34px;
-}
-
-.reticle-cross-vertical {
-    position: absolute;
-    width: 2px;
-    height: 90px;
-    background: #00ff88;
-    left: 34px;
-    top: -10px;
-}
-
-@media(max-width:600px) {
-
-    #help {
-        display: none;
-    }
-
-    button {
-        padding: 12px 11px;
-    }
-}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,sans-serif;background:#101820;color:#fff}
+canvas{display:block}
+#top{position:fixed;z-index:10;left:0;right:0;top:0;padding:16px 18px;pointer-events:none;background:linear-gradient(rgba(0,0,0,.78),transparent)}
+#top h1{margin:0 0 4px;font-size:23px}#top p{margin:0;font-size:13px;opacity:.9}
+#status{position:fixed;z-index:12;top:78px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.7);padding:9px 14px;border-radius:20px;font-size:12px;text-align:center;max-width:92%}
+#help{position:fixed;z-index:12;right:14px;top:14px;background:rgba(0,0,0,.55);padding:8px 11px;border-radius:10px;font-size:11px}
+#controls{position:fixed;z-index:20;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:7px;flex-wrap:wrap;justify-content:center;width:97%}
+button{border:0;border-radius:12px;padding:11px 13px;font-size:13px;font-weight:bold;background:#fff;color:#222;box-shadow:0 3px 12px #0008}
+button:disabled{opacity:.45}
+#info,#timeline{display:none;position:fixed;z-index:30;left:5%;right:5%;bottom:90px;max-height:62vh;overflow:auto;background:#101010ee;padding:19px;border-radius:18px}
+#info h2,#timeline h2{margin-top:0}#info p,#timeline p{line-height:1.5}
+.card{padding:10px 0;border-bottom:1px solid #ffffff22}
+.hotspot{position:fixed;z-index:25;display:none;padding:8px 11px;border-radius:10px;background:#000c;font-size:12px}
+@media(max-width:600px){#help{display:none}button{padding:12px 11px}}
 </style>
 </head>
-
 <body>
-
-<div id="top">
-    <h1>AR Taj Mahal</h1>
-    <p>Interactive Historical Monument • Multimedia Exercise 7</p>
-</div>
-
-<div id="help">
-    Desktop: drag to rotate • wheel to zoom
-</div>
-
-<div id="status">
-    Loading 3D Taj Mahal...
-</div>
-
-<!-- AR placement marker -->
-<div id="reticle">
-    <div class="reticle-circle"></div>
-    <div class="reticle-cross-horizontal"></div>
-    <div class="reticle-cross-vertical"></div>
-</div>
+<div id="top"><h1>AR Meenakshi Amman Temple</h1><p>Interactive Historical Monument • Multimedia Exercise 7</p></div>
+<div id="help">Desktop: drag to rotate • wheel to zoom</div>
+<div id="status">Loading 3D Meenakshi Amman Temple…</div>
 
 <div id="info">
-
-    <h2>🕌 Taj Mahal</h2>
-
-    <p>
-        <b>Location:</b>
-        Agra, Uttar Pradesh, India
-    </p>
-
-    <p>
-        The Taj Mahal is a white-marble mausoleum
-        commissioned by Mughal emperor Shah Jahan
-        in memory of Mumtaz Mahal.
-    </p>
-
-    <p>
-        The principal mausoleum was substantially
-        completed in the late 1630s, while work on
-        the wider complex continued afterward.
-    </p>
-
-    <p>
-        <b>Architecture:</b>
-        The complex combines a central mausoleum,
-        four minarets, a large central dome,
-        subsidiary domes, gateways, mosque/guest-house
-        structures and formal gardens.
-    </p>
-
-    <p>
-        This EX7 model is a simplified procedural
-        3D reconstruction created directly in
-        JavaScript using Three.js.
-    </p>
-
+<h2>🛕 Meenakshi Amman Temple</h2>
+<p><b>Location:</b> Madurai, Tamil Nadu, India</p>
+<p>The Meenakshi Amman Temple is a historic Hindu temple complex in Madurai, Tamil Nadu, dedicated to Goddess Meenakshi and Lord Sundareswarar.</p>
+<p>The temple complex developed over many centuries, with major expansions and construction taking place under successive Pandya and Nayak rulers.</p>
+<p><b>Architecture:</b> The complex is known for its towering gopurams, sculpted figures, mandapams, corridors and colorful Dravidian temple architecture.</p>
+<p>This EX7 model is a simplified procedural 3D reconstruction of the temple created directly in JavaScript using Three.js.</p>
 </div>
 
 <div id="timeline">
-
-    <h2>Historical Timeline</h2>
-
-    <div class="card">
-        <b>1631</b><br>
-        Mumtaz Mahal died in Burhanpur.
-    </div>
-
-    <div class="card">
-        <b>1632</b><br>
-        Construction of the Taj Mahal complex began.
-    </div>
-
-    <div class="card">
-        <b>1630s</b><br>
-        The principal mausoleum was substantially completed.
-    </div>
-
-    <div class="card">
-        <b>Later years</b><br>
-        Additional complex elements and finishing work continued.
-    </div>
-
+<h2>Historical Timeline</h2>
+<div class="card"><b>Ancient period</b><br>The temple tradition in Madurai has ancient roots.</div>
+<div class="card"><b>16th–17th centuries</b><br>Major expansions and additions were made during the Nayak period.</div>
+<div class="card"><b>17th century</b><br>The temple complex developed into the monumental form associated with Madurai.</div>
+<div class="card"><b>Later years</b><br>Restoration and maintenance of the temple complex have continued.</div>
 </div>
 
 <div id="controls">
-
-    <button id="arBtn">
-        📱 Start AR
-    </button>
-
-    <button id="rotateBtn">
-        🔄 Auto Rotate
-    </button>
-
-    <button id="scaleUp">
-        ＋ Scale
-    </button>
-
-    <button id="scaleDown">
-        − Scale
-    </button>
-
-    <button id="infoBtn">
-        📖 History
-    </button>
-
-    <button id="timeBtn">
-        ⌛ Timeline
-    </button>
-
-    <button id="resetBtn">
-        ↺ Reset
-    </button>
-
+<button id="arBtn">📱 Start AR</button>
+<button id="rotateBtn">🔄 Auto Rotate</button>
+<button id="scaleUp">＋ Scale</button>
+<button id="scaleDown">− Scale</button>
+<button id="infoBtn">📖 History</button>
+<button id="timeBtn">⌛ Timeline</button>
+<button id="resetBtn">↺ Reset</button>
 </div>
 
-
 <script type="module">
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
 
-/* =========================================================
-   THREE.JS
-========================================================= */
+let scene,camera,renderer,monument;
+let xrSession=null,hitTestSource=null,hitTestSourceRequested=false,placed=false;
+let autoRotate=false,modelScale=1,dragging=false,lastX=0,lastY=0;
 
-import * as THREE from
-"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
+const status=document.getElementById("status");
+const arBtn=document.getElementById("arBtn");
 
+const marble=new THREE.MeshStandardMaterial({color:0xc94c3c,roughness:.65,metalness:.02});
+  const marble2=new THREE.MeshStandardMaterial({color:0xb85c38,roughness:.68});
+  const shadowMarble=new THREE.MeshStandardMaterial({color:0x7a6a32,roughness:.72});
+  const dark=new THREE.MeshStandardMaterial({color:0xd6a928,roughness:.5,metalness:.15});
+  const garden=new THREE.MeshStandardMaterial({color:0x477447,roughness:.9});
+  const water=new THREE.MeshStandardMaterial({color:0x8f6b3e,roughness:.22,metalness:.05});
+  const gold=new THREE.MeshStandardMaterial({color:0xd4a72c,roughness:.4,metalness:.35});
+  const black=new THREE.MeshStandardMaterial({color:0x6f4b3e,roughness:.72});
 
-/* =========================================================
-   GLOBAL VARIABLES
-========================================================= */
+function box(p,x,y,z,sx,sy,sz,m=marble){
+ const o=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),m);o.position.set(x,y,z);p.add(o);return o;
+}
+function cyl(p,x,y,z,r1,r2,h,m=marble,n=32){
+ const o=new THREE.Mesh(new THREE.CylinderGeometry(r1,r2,h,n),m);o.position.set(x,y,z);p.add(o);return o;
+}
+function dome(p,x,y,z,r,h,m=marble){
+ const o=new THREE.Mesh(new THREE.SphereGeometry(r,40,20,0,Math.PI*2,0,Math.PI/2),m);
+ o.scale.y=h/r;o.position.set(x,y,z);p.add(o);return o;
+}
+function sphere(p,x,y,z,r,m=marble){
+ const o=new THREE.Mesh(new THREE.SphereGeometry(r,24,16),m);o.position.set(x,y,z);p.add(o);return o;
+}
+function arch(p,x,y,z,w,h,d,m=dark){
+ box(p,x,y-h*.23,z,w,h*.56,d,m);
+ const o=dome(p,x,y+h*.03,z,w/2,w*.52,m);o.rotation.z=Math.PI;return o;
+}
+function finial(p,x,y,z){
+ cyl(p,x,y,z,.035,.035,.55,gold,12);sphere(p,x,y+.31,z,.085,gold);
+}
+function minaret(p,x,z){
+ const g=new THREE.Group();g.position.set(x,0,z);p.add(g);
+ cyl(g,0,1.05,0,.28,.34,2.0,marble,28);
+ cyl(g,0,2.08,0,.40,.40,.14,marble2);
+ cyl(g,0,2.22,0,.27,.30,.20,marble);
+ cyl(g,0,2.38,0,.36,.36,.13,marble2);
+ cyl(g,0,2.56,0,.17,.20,.30,marble);
+ dome(g,0,2.77,0,.22,.30,marble);
+ finial(g,0,3.02,0);
+}
+function smallDome(p,x,z){
+ dome(p,x,1.55,z,.50,.48,marble);finial(p,x,1.88,z);
+}
+function createMeenakshiTemple(){
+  const r=new THREE.Group();
 
-let scene;
-let camera;
-let renderer;
-let monument;
+  // Temple platform
+  box(r,0,.10,0,8.2,.20,6.8,shadowMarble);
+  box(r,0,.25,0,7.7,.18,6.3,marble2);
+  box(r,0,.42,0,7.0,.16,5.7,marble);
 
-let xrSession = null;
-let hitTestSource = null;
-let hitTestSourceRequested = false;
+  // Main temple halls
+  box(r,0,1.15,0,4.6,1.55,3.6,marble);
+  box(r,0,1.92,0,3.7,.22,2.9,marble2);
 
-let placed = false;
-let surfaceFound = false;
+  // Central shrine
+  box(r,0,2.05,0,2.15,1.65,2.0,marble);
+  box(r,0,2.92,0,1.65,.22,1.55,marble2);
+  dome(r,0,3.15,0,1.05,.72,marble2);
+  finial(r,0,3.72,0);
 
-let autoRotate = false;
+  // Four colorful gopuram towers
+  const gopurams=[
+    [-3.05,0,Math.PI/2],
+    [3.05,0,-Math.PI/2],
+    [0,-2.65,0],
+    [0,2.65,Math.PI]
+  ];
 
-let modelScale = 1;
+  for(const [x,z,rot] of gopurams){
+    const g=new THREE.Group();
+    g.position.set(x,0,z);
+    g.rotation.y=rot;
+    r.add(g);
 
-let dragging = false;
-let lastX = 0;
-let lastY = 0;
+    box(g,0,1.35,0,1.05,2.7,1.05,marble2);
+    box(g,0,2.75,0,.88,.18,.88,gold);
+    box(g,0,3.05,0,.78,.30,.78,marble);
 
+    // Stepped gopuram tiers
+    for(let i=0;i<5;i++){
+      const y=3.28+i*.34;
+      const s=0.72-i*.07;
+      box(g,0,y,0,s,.28,s,[marble,marble2,shadowMarble,dark][i%4]);
+      for(let j=-1;j<=1;j++){
+        sphere(g,j*.22,y+.15,0,.065,gold);
+      }
+    }
+    dome(g,0,4.98,0,.34,.38,marble2);
+    finial(g,0,5.32,0);
+  }
 
-/* =========================================================
-   HTML ELEMENTS
-========================================================= */
+  // Pillared mandapam
+  for(const x of [-1.55,-.78,0,.78,1.55]){
+    for(const z of [-1.0,1.0]){
+      cyl(r,x,1.45,z,.10,.13,1.75,marble2,16);
+      sphere(r,x,2.34,z,.16,gold);
+    }
+  }
 
-const status =
-    document.getElementById("status");
+  // Smaller roof shrines
+  for(const [x,z] of [[-1.65,-1.15],[1.65,-1.15],[-1.65,1.15],[1.65,1.15]]){
+    box(r,x,2.25,z,.48,.85,.48,marble2);
+    dome(r,x,2.78,z,.27,.30,marble);
+    finial(r,x,3.02,z);
+  }
 
-const arBtn =
-    document.getElementById("arBtn");
+  // Courtyard and water feature
+  box(r,0,.72,0,5.9,.05,4.8,garden);
+  box(r,0,.76,0,.18,.035,4.8,water);
+  box(r,0,.77,0,5.9,.035,.18,water);
 
-const reticle =
-    document.getElementById("reticle");
+  // Entrance steps and gateway
+  box(r,0,.78,2.35,2.5,.18,.55,marble2);
+  arch(r,0,1.45,2.62,1.15,1.35,.18,dark);
 
+  // Decorative bands
+  box(r,0,1.20,1.82,3.8,.055,.05,gold);
+  box(r,0,2.72,1.82,3.0,.045,.04,gold);
 
-/* =========================================================
-   MATERIALS
-========================================================= */
-
-const marble =
-    new THREE.MeshStandardMaterial({
-        color: 0xf0eee7,
-        roughness: .68,
-        metalness: .02
-    });
-
-const marble2 =
-    new THREE.MeshStandardMaterial({
-        color: 0xdedbd2,
-        roughness: .72
-    });
-
-const shadowMarble =
-    new THREE.MeshStandardMaterial({
-        color: 0xc8c4bb,
-        roughness: .8
-    });
-
-const dark =
-    new THREE.MeshStandardMaterial({
-        color: 0x625d55,
-        roughness: .82
-    });
-
-const garden =
-    new THREE.MeshStandardMaterial({
-        color: 0x315c3e,
-        roughness: .9
-    });
-
-const water =
-    new THREE.MeshStandardMaterial({
-        color: 0x547f91,
-        roughness: .22,
-        metalness: .05
-    });
-
-const gold =
-    new THREE.MeshStandardMaterial({
-        color: 0xb99a4d,
-        roughness: .45,
-        metalness: .4
-    });
-
-
-/* =========================================================
-   HELPER FUNCTIONS
-========================================================= */
-
-function box(
-    p,
-    x,
-    y,
-    z,
-    sx,
-    sy,
-    sz,
-    m = marble
-) {
-
-    const o =
-        new THREE.Mesh(
-            new THREE.BoxGeometry(
-                sx,
-                sy,
-                sz
-            ),
-            m
-        );
-
-    o.position.set(x, y, z);
-
-    p.add(o);
-
-    return o;
+  return r;
 }
 
 
-function cyl(
-    p,
-    x,
-    y,
-    z,
-    r1,
-    r2,
-    h,
-    m = marble,
-    n = 32
-) {
+function init(){
+ scene=new THREE.Scene();
+ scene.background=new THREE.Color(0x9fb8c8);
+ camera=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.01,100);
+ camera.position.set(7.8,5.3,9.5);camera.lookAt(0,1.8,0);
 
-    const o =
-        new THREE.Mesh(
-            new THREE.CylinderGeometry(
-                r1,
-                r2,
-                h,
-                n
-            ),
-            m
-        );
+ renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+ renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+ renderer.setSize(innerWidth,innerHeight);
+ renderer.outputColorSpace=THREE.SRGBColorSpace;
+ renderer.xr.enabled=true;
+ document.body.appendChild(renderer.domElement);
 
-    o.position.set(x, y, z);
+ scene.add(new THREE.HemisphereLight(0xffffff,0x5b6670,2.1));
+ const sun=new THREE.DirectionalLight(0xffffff,2.5);sun.position.set(5,9,6);scene.add(sun);
+ const fill=new THREE.DirectionalLight(0xdde9ff,.7);fill.position.set(-5,4,-4);scene.add(fill);
 
-    p.add(o);
+ monument=createMeenakshiTemple();scene.add(monument);monument.scale.setScalar(.46);
 
-    return o;
+ status.textContent="Desktop 3D Mode — drag to rotate, scroll to zoom.";
+ renderer.setAnimationLoop((time,frame)=>{
+   if(frame)handleARFrame(frame);
+   if(autoRotate)monument.rotation.y+=.004;
+   renderer.render(scene,camera);
+ });
 }
 
-
-function dome(
-    p,
-    x,
-    y,
-    z,
-    r,
-    h,
-    m = marble
-) {
-
-    const o =
-        new THREE.Mesh(
-            new THREE.SphereGeometry(
-                r,
-                40,
-                20,
-                0,
-                Math.PI * 2,
-                0,
-                Math.PI / 2
-            ),
-            m
-        );
-
-    o.scale.y = h / r;
-
-    o.position.set(x, y, z);
-
-    p.add(o);
-
-    return o;
+async function startAR(){
+ if(!navigator.xr){
+   status.textContent="AR unavailable here. Use a compatible Android phone for AR; desktop 3D mode is active.";
+   return;
+ }
+ try{
+   const supported=await navigator.xr.isSessionSupported("immersive-ar");
+   if(!supported){
+     status.textContent="AR is not supported on this device. Open this GitHub Pages site on a compatible Android phone.";
+     return;
+   }
+   xrSession=await navigator.xr.requestSession("immersive-ar",{
+     requiredFeatures:["hit-test"],optionalFeatures:["dom-overlay"],
+     domOverlay:{root:document.body}
+   });
+   renderer.xr.setReferenceSpaceType("local");
+   await renderer.xr.setSession(xrSession);
+   arBtn.textContent="AR Running";arBtn.disabled=true;
+   status.textContent="Move the phone slowly until a floor/table is detected.";
+   xrSession.addEventListener("end",()=>{
+     xrSession=null;hitTestSource=null;hitTestSourceRequested=false;placed=false;
+     arBtn.textContent="📱 Start AR";arBtn.disabled=false;
+     status.textContent="AR ended. Desktop 3D mode is available on PC.";
+   });
+ }catch(e){status.textContent="Could not start AR: "+e.message}
 }
 
-
-function sphere(
-    p,
-    x,
-    y,
-    z,
-    r,
-    m = marble
-) {
-
-    const o =
-        new THREE.Mesh(
-            new THREE.SphereGeometry(
-                r,
-                24,
-                16
-            ),
-            m
-        );
-
-    o.position.set(x, y, z);
-
-    p.add(o);
-
-    return o;
+function handleARFrame(frame){
+ if(!xrSession)return;
+ const ref=renderer.xr.getReferenceSpace();
+ if(!hitTestSourceRequested){
+   xrSession.requestReferenceSpace("viewer").then(space=>
+     xrSession.requestHitTestSource({space}).then(src=>hitTestSource=src)
+   );
+   hitTestSourceRequested=true;
+ }
+ if(hitTestSource&&!placed){
+   const hits=frame.getHitTestResults(hitTestSource);
+   if(hits.length){
+     const pose=hits[0].getPose(ref);
+     if(pose){
+       monument.position.set(pose.transform.position.x,pose.transform.position.y,pose.transform.position.z);
+       monument.visible=true;
+       status.textContent="Surface detected — tap the screen to place the Taj Mahal.";
+     }
+   }
+ }
 }
 
-
-function arch(
-    p,
-    x,
-    y,
-    z,
-    w,
-    h,
-    d,
-    m = dark
-) {
-
-    box(
-        p,
-        x,
-        y - h * .23,
-        z,
-        w,
-        h * .56,
-        d,
-        m
-    );
-
-    const o =
-        dome(
-            p,
-            x,
-            y + h * .03,
-            z,
-            w / 2,
-            w * .52,
-            m
-        );
-
-    o.rotation.z = Math.PI;
-
-    return o;
+function scaleModel(f){
+ modelScale=Math.max(.25,Math.min(3,modelScale*f));
+ monument.scale.setScalar(.46*modelScale);
+}
+function reset(){
+ modelScale=1;monument.scale.setScalar(.46);monument.rotation.set(0,0,0);
+ monument.position.set(0,0,0);camera.position.set(7.8,5.3,9.5);camera.lookAt(0,1.8,0);
+ status.textContent=xrSession?"AR active.":"Desktop 3D Mode — drag to rotate, scroll to zoom.";
 }
 
-
-function finial(p, x, y, z) {
-
-    cyl(
-        p,
-        x,
-        y,
-        z,
-        .035,
-        .035,
-        .55,
-        gold,
-        12
-    );
-
-    sphere(
-        p,
-        x,
-        y + .31,
-        z,
-        .085,
-        gold
-    );
-}
-
-
-function minaret(p, x, z) {
-
-    const g =
-        new THREE.Group();
-
-    g.position.set(x, 0, z);
-
-    p.add(g);
-
-    cyl(
-        g,
-        0,
-        1.05,
-        0,
-        .28,
-        .34,
-        2.0,
-        marble,
-        28
-    );
-
-    cyl(
-        g,
-        0,
-        2.08,
-        0,
-        .40,
-        .40,
-        .14,
-        marble2
-    );
-
-    cyl(
-        g,
-        0,
-        2.22,
-        0,
-        .27,
-        .30,
-        .20,
-        marble
-    );
-
-    cyl(
-        g,
-        0,
-        2.38,
-        0,
-        .36,
-        .36,
-        .13,
-        marble2
-    );
-
-    cyl(
-        g,
-        0,
-        2.56,
-        0,
-        .17,
-        .20,
-        .30,
-        marble
-    );
-
-    dome(
-        g,
-        0,
-        2.77,
-        0,
-        .22,
-        .30,
-        marble
-    );
-
-    finial(
-        g,
-        0,
-        3.02,
-        0
-    );
-}
-
-
-function smallDome(p, x, z) {
-
-    dome(
-        p,
-        x,
-        1.55,
-        z,
-        .50,
-        .48,
-        marble
-    );
-
-    finial(
-        p,
-        x,
-        1.88,
-        z
-    );
-}
-
-
-/* =========================================================
-   CREATE TAJ MAHAL
-========================================================= */
-
-function createTaj() {
-
-    const r =
-        new THREE.Group();
-
-
-    /* Grand plinth */
-
-    box(
-        r,
-        0,
-        .10,
-        0,
-        8.2,
-        .20,
-        6.8,
-        shadowMarble
-    );
-
-    box(
-        r,
-        0,
-        .25,
-        0,
-        7.65,
-        .16,
-        6.25,
-        marble2
-    );
-
-    box(
-        r,
-        0,
-        .40,
-        0,
-        6.95,
-        .14,
-        5.7,
-        marble
-    );
-
-    box(
-        r,
-        0,
-        .65,
-        0,
-        5.85,
-        .42,
-        4.65,
-        marble
-    );
-
-
-    /* Garden */
-
-    box(
-        r,
-        0,
-        .88,
-        0,
-        5.55,
-        .05,
-        4.2,
-        garden
-    );
-
-    box(
-        r,
-        0,
-        .91,
-        0,
-        .26,
-        .035,
-        4.2,
-        water
-    );
-
-    box(
-        r,
-        0,
-        .92,
-        0,
-        5.55,
-        .035,
-        .26,
-        water
-    );
-
-
-    /* Main platform */
-
-    box(
-        r,
-        0,
-        1.08,
-        0,
-        4.95,
-        .28,
-        3.85,
-        marble
-    );
-
-    box(
-        r,
-        0,
-        1.28,
-        0,
-        4.65,
-        .18,
-        3.55,
-        marble2
-    );
-
-
-    /* Main building */
-
-    box(
-        r,
-        0,
-        2.15,
-        0,
-        3.65,
-        1.75,
-        2.72,
-        marble
-    );
-
-
-    /* Corner towers */
-
-    for (
-        const [x, z]
-        of [
-            [-1.58, -1.16],
-            [-1.58, 1.16],
-            [1.58, -1.16],
-            [1.58, 1.16]
-        ]
-    ) {
-
-        box(
-            r,
-            x,
-            2.05,
-            z,
-            .48,
-            1.62,
-            .48,
-            marble2
-        );
-
-        dome(
-            r,
-            x,
-            2.92,
-            z,
-            .33,
-            .40,
-            marble
-        );
-    }
-
-
-    /* Portals */
-
-    arch(
-        r,
-        0,
-        2.05,
-        1.38,
-        1.28,
-        1.60,
-        .20,
-        dark
-    );
-
-    arch(
-        r,
-        0,
-        2.05,
-        -1.38,
-        1.28,
-        1.60,
-        .20,
-        dark
-    );
-
-    arch(
-        r,
-        -1.84,
-        2.05,
-        0,
-        1.08,
-        1.48,
-        .20,
-        dark
-    );
-
-    arch(
-        r,
-        1.84,
-        2.05,
-        0,
-        1.08,
-        1.48,
-        .20,
-        dark
-    );
-
-
-    /* Decorative arches */
-
-    for (
-        const x of [-1.15, 1.15]
-    ) {
-
-        arch(
-            r,
-            x,
-            1.94,
-            1.39,
-            .52,
-            .82,
-            .13,
-            dark
-        );
-    }
-
-
-    /* Main dome */
-
-    cyl(
-        r,
-        0,
-        2.99,
-        0,
-        1.34,
-        1.34,
-        .28,
-        marble2
-    );
-
-    dome(
-        r,
-        0,
-        3.15,
-        0,
-        1.43,
-        1.50,
-        marble
-    );
-
-    dome(
-        r,
-        0,
-        4.08,
-        0,
-        .43,
-        .46,
-        marble2
-    );
-
-    finial(
-        r,
-        0,
-        4.36,
-        0
-    );
-
-
-    /* Four minarets */
-
-    minaret(r, -2.78, -2.12);
-    minaret(r, -2.78, 2.12);
-    minaret(r, 2.78, -2.12);
-    minaret(r, 2.78, 2.12);
-
-
-    /* Mosque and guest house */
-
-    for (
-        const x of [-3.75, 3.75]
-    ) {
-
-        box(
-            r,
-            x,
-            1.25,
-            0,
-            1.35,
-            1.12,
-            2.55,
-            marble
-        );
-
-        arch(
-            r,
-            x,
-            1.36,
-            1.30,
-            .58,
-            .78,
-            .12,
-            dark
-        );
-
-        arch(
-            r,
-            x,
-            1.36,
-            -1.30,
-            .58,
-            .78,
-            .12,
-            dark
-        );
-
-        smallDome(
-            r,
-            x,
-            -.78
-        );
-
-        smallDome(
-            r,
-            x,
-            .78
-        );
-    }
-
-
-    /* Rear facade */
-
-    box(
-        r,
-        0,
-        1.18,
-        -2.48,
-        3.15,
-        1.0,
-        .34,
-        marble2
-    );
-
-    arch(
-        r,
-        0,
-        1.32,
-        -2.68,
-        .82,
-        .90,
-        .12,
-        dark
-    );
-
-    dome(
-        r,
-        0,
-        1.92,
-        -2.48,
-        .42,
-        .40,
-        marble
-    );
-
-
-    /* Decorative bands */
-
-    box(
-        r,
-        0,
-        1.35,
-        1.39,
-        4.25,
-        .055,
-        .045,
-        gold
-    );
-
-    box(
-        r,
-        0,
-        2.86,
-        1.39,
-        3.48,
-        .045,
-        .04,
-        gold
-    );
-
-    box(
-        r,
-        0,
-        1.35,
-        -1.39,
-        4.25,
-        .055,
-        .045,
-        gold
-    );
-
-
-    /* Garden paths */
-
-    box(
-        r,
-        0,
-        .96,
-        0,
-        .20,
-        .035,
-        4.2,
-        marble2
-    );
-
-    box(
-        r,
-        0,
-        .97,
-        0,
-        5.55,
-        .035,
-        .20,
-        marble2
-    );
-
-
-    return r;
-}
-
-
-/* =========================================================
-   INITIALIZE THREE.JS
-========================================================= */
-
-function init() {
-
-    scene =
-        new THREE.Scene();
-
-
-    /* Normal desktop background */
-
-    scene.background =
-        new THREE.Color(0x9fb8c8);
-
-
-    camera =
-        new THREE.PerspectiveCamera(
-            55,
-            innerWidth / innerHeight,
-            .01,
-            100
-        );
-
-    camera.position.set(
-        7.8,
-        5.3,
-        9.5
-    );
-
-    camera.lookAt(
-        0,
-        1.8,
-        0
-    );
-
-
-    renderer =
-        new THREE.WebGLRenderer({
-            antialias: true,
-            alpha: true
-        });
-
-    renderer.setPixelRatio(
-        Math.min(devicePixelRatio, 2)
-    );
-
-    renderer.setSize(
-        innerWidth,
-        innerHeight
-    );
-
-    renderer.outputColorSpace =
-        THREE.SRGBColorSpace;
-
-
-    /* Enable WebXR */
-
-    renderer.xr.enabled = true;
-
-
-    document.body.appendChild(
-        renderer.domElement
-    );
-
-
-    /* Lights */
-
-    scene.add(
-        new THREE.HemisphereLight(
-            0xffffff,
-            0x5b6670,
-            2.1
-        )
-    );
-
-    const sun =
-        new THREE.DirectionalLight(
-            0xffffff,
-            2.5
-        );
-
-    sun.position.set(
-        5,
-        9,
-        6
-    );
-
-    scene.add(sun);
-
-
-    const fill =
-        new THREE.DirectionalLight(
-            0xdde9ff,
-            .7
-        );
-
-    fill.position.set(
-        -5,
-        4,
-        -4
-    );
-
-    scene.add(fill);
-
-
-    /* Create Taj Mahal */
-
-    monument =
-        createTaj();
-
-    monument.scale.setScalar(.46);
-
-    scene.add(monument);
-
-
-    status.textContent =
-        "Desktop 3D Mode — drag to rotate, scroll to zoom.";
-
-
-    /* =====================================================
-       IMPORTANT:
-       Create WebXR controller
-    ===================================================== */
-
-    const controller =
-        renderer.xr.getController(0);
-
-
-    controller.addEventListener(
-        "select",
-        function () {
-
-            if (
-                xrSession &&
-                surfaceFound
-            ) {
-
-                placed = true;
-
-                reticle.style.display =
-                    "none";
-
-                status.textContent =
-                    "Taj Mahal placed! Use Scale and Auto Rotate.";
-            }
-        }
-    );
-
-
-    scene.add(controller);
-
-
-    /* Animation */
-
-    renderer.setAnimationLoop(
-        function (time, frame) {
-
-            if (frame) {
-
-                handleARFrame(
-                    frame
-                );
-            }
-
-
-            if (
-                autoRotate &&
-                (!xrSession || placed)
-            ) {
-
-                monument.rotation.y +=
-                    .004;
-            }
-
-
-            renderer.render(
-                scene,
-                camera
-            );
-        }
-    );
-}
-
-
-/* =========================================================
-   START AR
-========================================================= */
-
-async function startAR() {
-
-    /* Check WebXR */
-
-    if (!navigator.xr) {
-
-        status.textContent =
-            "WebXR is not available. Open this website using Chrome on a compatible Android phone.";
-
-        return;
-    }
-
-
-    try {
-
-        status.textContent =
-            "Checking AR support...";
-
-
-        /* Check immersive AR */
-
-        const supported =
-            await navigator.xr.isSessionSupported(
-                "immersive-ar"
-            );
-
-
-        if (!supported) {
-
-            status.textContent =
-                "AR is not supported on this phone/browser. Try Chrome on an ARCore-supported Android phone.";
-
-            return;
-        }
-
-
-        status.textContent =
-            "Opening camera AR...";
-
-
-        /* Start AR session */
-
-        xrSession =
-            await navigator.xr.requestSession(
-                "immersive-ar",
-                {
-                    requiredFeatures: [
-                        "hit-test"
-                    ],
-
-                    optionalFeatures: [
-                        "dom-overlay"
-                    ],
-
-                    domOverlay: {
-                        root: document.body
-                    }
-                }
-            );
-
-
-        /* Tell Three.js to use XR */
-
-        renderer.xr.setReferenceSpaceType(
-            "local"
-        );
-
-        await renderer.xr.setSession(
-            xrSession
-        );
-
-
-        /* UI */
-
-        arBtn.textContent =
-            "AR Running";
-
-        arBtn.disabled = true;
-
-
-        status.textContent =
-            "Move your phone slowly to find a floor or table.";
-
-
-        /* Reset AR variables */
-
-        hitTestSource = null;
-
-        hitTestSourceRequested =
-            false;
-
-        placed = false;
-
-        surfaceFound = false;
-
-
-        monument.visible =
-            true;
-
-
-        /* When AR ends */
-
-        xrSession.addEventListener(
-            "end",
-            function () {
-
-                xrSession = null;
-
-                hitTestSource = null;
-
-                hitTestSourceRequested =
-                    false;
-
-                placed = false;
-
-                surfaceFound = false;
-
-
-                reticle.style.display =
-                    "none";
-
-
-                arBtn.textContent =
-                    "📱 Start AR";
-
-                arBtn.disabled =
-                    false;
-
-
-                status.textContent =
-                    "AR ended. Desktop 3D mode is available.";
-            }
-        );
-
-    }
-    catch (error) {
-
-        console.error(
-            "AR ERROR:",
-            error
-        );
-
-
-        status.textContent =
-            "AR could not start: " +
-            error.message;
-    }
-}
-
-
-/* =========================================================
-   AR HIT TEST
-========================================================= */
-
-function handleARFrame(frame) {
-
-    if (!xrSession) {
-        return;
-    }
-
-
-    const referenceSpace =
-        renderer.xr.getReferenceSpace();
-
-
-    /*
-       Request hit-test source
-       only once.
-    */
-
-    if (!hitTestSourceRequested) {
-
-        xrSession
-            .requestReferenceSpace("viewer")
-            .then(
-                function (viewerSpace) {
-
-                    return xrSession
-                        .requestHitTestSource({
-                            space: viewerSpace
-                        });
-                }
-            )
-            .then(
-                function (source) {
-
-                    hitTestSource =
-                        source;
-                }
-            )
-            .catch(
-                function (error) {
-
-                    console.error(
-                        "Hit test error:",
-                        error
-                    );
-
-                    status.textContent =
-                        "Could not start surface detection.";
-                }
-            );
-
-
-        hitTestSourceRequested =
-            true;
-    }
-
-
-    /*
-       Detect real-world surface
-    */
-
-    if (
-        hitTestSource &&
-        !placed
-    ) {
-
-        const hitTestResults =
-            frame.getHitTestResults(
-                hitTestSource
-            );
-
-
-        if (
-            hitTestResults.length > 0
-        ) {
-
-            const hit =
-                hitTestResults[0];
-
-
-            const pose =
-                hit.getPose(
-                    referenceSpace
-                );
-
-
-            if (pose) {
-
-                surfaceFound =
-                    true;
-
-
-                /*
-                   Move Taj Mahal to
-                   detected surface.
-                */
-
-                monument.position.set(
-                    pose.transform.position.x,
-                    pose.transform.position.y,
-                    pose.transform.position.z
-                );
-
-
-                /*
-                   Show placement marker
-                */
-
-                reticle.style.display =
-                    "block";
-
-
-                status.textContent =
-                    "Surface found! Tap the screen to place the Taj Mahal.";
-            }
-
-        }
-
-        else {
-
-            surfaceFound =
-                false;
-
-            reticle.style.display =
-                "none";
-
-
-            status.textContent =
-                "Move your phone slowly to detect a floor or table.";
-        }
-    }
-}
-
-
-/* =========================================================
-   SCALE
-========================================================= */
-
-function scaleModel(factor) {
-
-    modelScale =
-        Math.max(
-            .25,
-            Math.min(
-                3,
-                modelScale * factor
-            )
-        );
-
-
-    monument.scale.setScalar(
-        .46 * modelScale
-    );
-}
-
-
-/* =========================================================
-   RESET
-========================================================= */
-
-function reset() {
-
-    modelScale = 1;
-
-    monument.scale.setScalar(
-        .46
-    );
-
-    monument.rotation.set(
-        0,
-        0,
-        0
-    );
-
-    monument.position.set(
-        0,
-        0,
-        0
-    );
-
-    placed = false;
-
-
-    if (xrSession) {
-
-        status.textContent =
-            "AR active. Move phone to detect a surface.";
-
-    }
-    else {
-
-        camera.position.set(
-            7.8,
-            5.3,
-            9.5
-        );
-
-        camera.lookAt(
-            0,
-            1.8,
-            0
-        );
-
-        status.textContent =
-            "Desktop 3D Mode — drag to rotate, scroll to zoom.";
-    }
-}
-
-
-/* =========================================================
-   BUTTON EVENTS
-========================================================= */
-
-arBtn.onclick =
-    startAR;
-
-
-document.getElementById(
-    "rotateBtn"
-).onclick =
-    function () {
-
-        autoRotate =
-            !autoRotate;
-
-
-        document.getElementById(
-            "rotateBtn"
-        ).textContent =
-            autoRotate
-                ? "⏸ Stop Rotate"
-                : "🔄 Auto Rotate";
-    };
-
-
-document.getElementById(
-    "scaleUp"
-).onclick =
-    function () {
-
-        scaleModel(1.16);
-    };
-
-
-document.getElementById(
-    "scaleDown"
-).onclick =
-    function () {
-
-        scaleModel(1 / 1.16);
-    };
-
-
-document.getElementById(
-    "resetBtn"
-).onclick =
-    reset;
-
-
-document.getElementById(
-    "infoBtn"
-).onclick =
-    function () {
-
-        const element =
-            document.getElementById(
-                "info"
-            );
-
-        element.style.display =
-            element.style.display === "block"
-                ? "none"
-                : "block";
-    };
-
-
-document.getElementById(
-    "timeBtn"
-).onclick =
-    function () {
-
-        const element =
-            document.getElementById(
-                "timeline"
-            );
-
-        element.style.display =
-            element.style.display === "block"
-                ? "none"
-                : "block";
-    };
-
-
-/* =========================================================
-   DESKTOP MOUSE CONTROLS
-========================================================= */
-
-window.addEventListener(
-    "pointerdown",
-    function (event) {
-
-        /* Don't use desktop dragging during AR */
-
-        if (xrSession) {
-            return;
-        }
-
-
-        if (
-            event.target.tagName ===
-            "BUTTON"
-        ) {
-            return;
-        }
-
-
-        dragging = true;
-
-        lastX =
-            event.clientX;
-
-        lastY =
-            event.clientY;
-    }
-);
-
-
-window.addEventListener(
-    "pointermove",
-    function (event) {
-
-        if (
-            !dragging ||
-            xrSession
-        ) {
-            return;
-        }
-
-
-        monument.rotation.y +=
-            (event.clientX - lastX) *
-            .008;
-
-
-        monument.rotation.x +=
-            (event.clientY - lastY) *
-            .004;
-
-
-        monument.rotation.x =
-            Math.max(
-                -.45,
-                Math.min(
-                    .45,
-                    monument.rotation.x
-                )
-            );
-
-
-        lastX =
-            event.clientX;
-
-        lastY =
-            event.clientY;
-    }
-);
-
-
-window.addEventListener(
-    "pointerup",
-    function () {
-
-        dragging = false;
-    }
-);
-
-
-/* Desktop zoom */
-
-window.addEventListener(
-    "wheel",
-    function (event) {
-
-        if (!xrSession) {
-
-            scaleModel(
-                event.deltaY < 0
-                    ? 1.08
-                    : 1 / 1.08
-            );
-        }
-    }
-);
-
-
-/* =========================================================
-   WINDOW RESIZE
-========================================================= */
-
-window.addEventListener(
-    "resize",
-    function () {
-
-        camera.aspect =
-            innerWidth /
-            innerHeight;
-
-        camera.updateProjectionMatrix();
-
-        renderer.setSize(
-            innerWidth,
-            innerHeight
-        );
-    }
-);
-
-
-/* =========================================================
-   START
-========================================================= */
-
+document.getElementById("arBtn").onclick=startAR;
+document.getElementById("rotateBtn").onclick=()=>{
+ autoRotate=!autoRotate;
+ document.getElementById("rotateBtn").textContent=autoRotate?"⏸ Stop Rotate":"🔄 Auto Rotate";
+};
+document.getElementById("scaleUp").onclick=()=>scaleModel(1.16);
+document.getElementById("scaleDown").onclick=()=>scaleModel(1/1.16);
+document.getElementById("resetBtn").onclick=reset;
+document.getElementById("infoBtn").onclick=()=>{
+ const e=document.getElementById("info");e.style.display=e.style.display==="block"?"none":"block";
+};
+document.getElementById("timeBtn").onclick=()=>{
+ const e=document.getElementById("timeline");e.style.display=e.style.display==="block"?"none":"block";
+};
+
+window.addEventListener("pointerdown",e=>{
+ if(e.target.tagName==="BUTTON")return;
+ if(xrSession){
+   placed=true;
+   status.textContent="Meenakshi Amman Temple placed. Use the controls to explore it.";
+   return;
+ }
+ dragging=true;lastX=e.clientX;lastY=e.clientY;
+});
+window.addEventListener("pointermove",e=>{
+ if(!dragging||xrSession)return;
+ monument.rotation.y+=(e.clientX-lastX)*.008;
+ monument.rotation.x+=((e.clientY-lastY)*.004);
+ monument.rotation.x=Math.max(-.45,Math.min(.45,monument.rotation.x));
+ lastX=e.clientX;lastY=e.clientY;
+});
+window.addEventListener("pointerup",()=>dragging=false);
+window.addEventListener("wheel",e=>{if(!xrSession)scaleModel(e.deltaY<0?1.08:1/1.08)});
+window.addEventListener("resize",()=>{
+ camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);
+});
 init();
-
 </script>
-
 </body>
 </html>
