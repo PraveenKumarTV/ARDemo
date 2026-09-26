@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>AR College Campus Tour</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Three.js -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+
+<body>
+
+    <header>
+        <h1>🏫 AR College Campus Tour</h1>
+        <p>Explore the college in Augmented Reality</p>
+    </header>
+
+    <main>
+
+        <section class="info">
+            <h2>Main Block</h2>
+
+            <p>
+                View a virtual college building in your
+                real-world environment.
+            </p>
+
+            <button id="startAR">
+                📱 View in AR
+            </button>
+
+            <p id="status">
+                Loading 3D campus...
+            </p>
+        </section>
+
+        <div id="canvas-container"></div>
+
+        <section class="instructions">
+
+            <h2>How to Use</h2>
+
+            <ol>
+                <li>Open this page on an AR-supported mobile device.</li>
+                <li>Tap <b>View in AR</b>.</li>
+                <li>Allow camera access if requested.</li>
+                <li>Move the phone slowly to detect the environment.</li>
+                <li>Place the virtual college building.</li>
+                <li>Walk around it and explore.</li>
+            </ol>
+
+        </section>
+
+    </main>
+
+    <footer>
+        AR College Campus Tour | Three.js + WebXR
+    </footer>
+
+    <script type="module" src="script.js"></script>
+
+</body>
+
+</html>
