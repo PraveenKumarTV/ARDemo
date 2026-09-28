@@ -1,0 +1,81 @@
+
+Exp-5 KVM
+
+#!/bin/bash
+
+# Update package list
+sudo apt update
+
+# Install KVM and virtualization tools
+sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients virt-manager
+
+# Enable and start libvirt
+sudo systemctl enable --now libvirtd
+
+# Add current user to KVM and libvirt groups
+sudo usermod -aG kvm "$USER"
+sudo usermod -aG libvirt "$USER"
+
+# Check KVM
+echo ""
+echo "Checking KVM..."
+if [ -e /dev/kvm ]; then
+    echo "KVM is available."
+else
+    echo "KVM is NOT available."
+    echo "Enable Intel VT-x / AMD-V in BIOS/UEFI."
+fi
+
+echo ""
+echo "KVM installation completed."
+echo "Log out and log back in for group changes to take effect."
+echo "Then run: virt-manager"
+
+
+run it using -->>>
+chmod +x install-kvm.sh
+./install-kvm.sh
+
+
+nano create-vm.sh
+Paste:
+
+#!/bin/bash
+
+VM_NAME="ubuntu-vm"
+RAM="4096"
+CPUS="2"
+DISK_SIZE="25G"
+ISO=$(ls ~/Downloads/*.iso | head -n 1)
+
+echo "Creating VM: $VM_NAME"
+echo "ISO: $ISO"
+
+sudo virt-install \
+  --name "$VM_NAME" \
+  --memory "$RAM" \
+  --vcpus "$CPUS" \
+  --disk size=25 \
+  --cdrom "$ISO" \
+  --os-variant ubuntu24.04 \
+  --network network=default \
+  --graphics spice
+
+echo "VM created."
+Save and exit.
+
+3. Run it
+chmod +x create-vm.sh
+./create-vm.sh
+A VM window should open and you'll get the normal Ubuntu installation screen.
+
+
+exp-7
+
+New-Item -Itemtype Directory -Path "C:\Hyper-V" -Force
+Connect-VMNetworkAdapter -VMName "praveen111" -SwitchName "Default Switch"
+Add-VMDvdDrive -VMName "praveen111" -Path "D:\soft\Cloud.iso"
+Set-VMFirmware -VM $vm -FirstBootDevice $dvd
+Get-VMFirmware -VM $vm
+Get-VM -Name "praveen111"
+Stop-VM -Name "praveen111"
