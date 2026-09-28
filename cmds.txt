@@ -79,3 +79,38 @@ Set-VMFirmware -VM $vm -FirstBootDevice $dvd
 Get-VMFirmware -VM $vm
 Get-VM -Name "praveen111"
 Stop-VM -Name "praveen111"
+ip addr
+sudo apt update
+sudo apt install bridge-utils -y
+sudo modprobe bridge
+sudo modprobe br_netfilter
+brctl show
+ip route
+sudo -i
+
+ip netns add VRF1
+ip netns add VRF2
+
+ip link add veth1 type veth peer name veth2
+ip link add veth3 type veth peer name veth4
+
+ip link set veth2 netns VRF1
+ip link set veth4 netns VRF2
+
+ip netns exec VRF1 ip addr add 10.0.0.1/24 dev veth2
+ip netns exec VRF2 ip addr add 10.0.0.2/24 dev veth4
+
+ip netns exec VRF1 ip link set veth2 up
+ip netns exec VRF2 ip link set veth4 up
+
+apt install openvswitch-switch -y
+systemctl start openvswitch-switch
+
+ovs-vsctl add-br ovs-br0
+ovs-vsctl add-port ovs-br0 veth1
+ovs-vsctl add-port ovs-br0 veth3
+
+ip link set veth1 up
+ip link set veth3 up
+
+ip netns exec VRF1 ping 10.0.0.2
