@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>AR Meenakshi Amman Temple | Multimedia EX7</title>
+<title>AR TCE Building | Multimedia EX7</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;font-family:Arial,sans-serif;background:#101820;color:#fff}
 canvas{display:block}
@@ -17,30 +17,28 @@ button:disabled{opacity:.45}
 #info,#timeline{display:none;position:fixed;z-index:30;left:5%;right:5%;bottom:90px;max-height:62vh;overflow:auto;background:#101010ee;padding:19px;border-radius:18px}
 #info h2,#timeline h2{margin-top:0}#info p,#timeline p{line-height:1.5}
 .card{padding:10px 0;border-bottom:1px solid #ffffff22}
-.hotspot{position:fixed;z-index:25;display:none;padding:8px 11px;border-radius:10px;background:#000c;font-size:12px}
 @media(max-width:600px){#help{display:none}button{padding:12px 11px}}
 </style>
 </head>
 <body>
-<div id="top"><h1>AR Meenakshi Amman Temple</h1><p>Interactive Historical Monument • Multimedia Exercise 7</p></div>
+<div id="top"><h1>AR TCE Building</h1><p>Thiagarajar College of Engineering, Madurai • Multimedia Exercise 7</p></div>
 <div id="help">Desktop: drag to rotate • wheel to zoom</div>
-<div id="status">Loading 3D Meenakshi Amman Temple…</div>
+<div id="status">Loading 3D TCE building…</div>
 
 <div id="info">
-<h2>🛕 Meenakshi Amman Temple</h2>
-<p><b>Location:</b> Madurai, Tamil Nadu, India</p>
-<p>The Meenakshi Amman Temple is a historic Hindu temple complex in Madurai, Tamil Nadu, dedicated to Goddess Meenakshi and Lord Sundareswarar.</p>
-<p>The temple complex developed over many centuries, with major expansions and construction taking place under successive Pandya and Nayak rulers.</p>
-<p><b>Architecture:</b> The complex is known for its towering gopurams, sculpted figures, mandapams, corridors and colorful Dravidian temple architecture.</p>
-<p>This EX7 model is a simplified procedural 3D reconstruction of the temple created directly in JavaScript using Three.js.</p>
+<h2>🏛️ Thiagarajar College of Engineering (TCE)</h2>
+<p><b>Location:</b> Thiruparankundram, Madurai, Tamil Nadu, India</p>
+<p>Thiagarajar College of Engineering was founded in 1957 by philanthropist Karumuttu Thiagarajan Chettiar and is one of the well-known engineering institutions of southern Tamil Nadu.</p>
+<p><b>Campus:</b> The main academic block is the campus landmark, with a central entrance portico, a tower above it and classroom wings on both sides.</p>
+<p>This EX7 model is a simplified procedural 3D representation of the TCE main building created directly in JavaScript using Three.js. Proportions and colors are approximate.</p>
 </div>
 
 <div id="timeline">
-<h2>Historical Timeline</h2>
-<div class="card"><b>Ancient period</b><br>The temple tradition in Madurai has ancient roots.</div>
-<div class="card"><b>16th–17th centuries</b><br>Major expansions and additions were made during the Nayak period.</div>
-<div class="card"><b>17th century</b><br>The temple complex developed into the monumental form associated with Madurai.</div>
-<div class="card"><b>Later years</b><br>Restoration and maintenance of the temple complex have continued.</div>
+<h2>TCE Timeline</h2>
+<div class="card"><b>1957</b><br>TCE is founded in Madurai by Karumuttu Thiagarajan Chettiar.</div>
+<div class="card"><b>Growth years</b><br>New departments, laboratories and academic blocks are added to the campus.</div>
+<div class="card"><b>Autonomous era</b><br>The college develops its own curriculum and expands its programmes.</div>
+<div class="card"><b>Today</b><br>TCE continues as a leading engineering college with active research and student projects.</div>
 </div>
 
 <div id="controls">
@@ -48,7 +46,7 @@ button:disabled{opacity:.45}
 <button id="rotateBtn">🔄 Auto Rotate</button>
 <button id="scaleUp">＋ Scale</button>
 <button id="scaleDown">− Scale</button>
-<button id="infoBtn">📖 History</button>
+<button id="infoBtn">📖 About</button>
 <button id="timeBtn">⌛ Timeline</button>
 <button id="resetBtn">↺ Reset</button>
 </div>
@@ -63,128 +61,116 @@ let autoRotate=false,modelScale=1,dragging=false,lastX=0,lastY=0;
 const status=document.getElementById("status");
 const arBtn=document.getElementById("arBtn");
 
-const marble=new THREE.MeshStandardMaterial({color:0xc94c3c,roughness:.65,metalness:.02});
-  const marble2=new THREE.MeshStandardMaterial({color:0xb85c38,roughness:.68});
-  const shadowMarble=new THREE.MeshStandardMaterial({color:0x7a6a32,roughness:.72});
-  const dark=new THREE.MeshStandardMaterial({color:0xd6a928,roughness:.5,metalness:.15});
-  const garden=new THREE.MeshStandardMaterial({color:0x477447,roughness:.9});
-  const water=new THREE.MeshStandardMaterial({color:0x8f6b3e,roughness:.22,metalness:.05});
-  const gold=new THREE.MeshStandardMaterial({color:0xd4a72c,roughness:.4,metalness:.35});
-  const black=new THREE.MeshStandardMaterial({color:0x6f4b3e,roughness:.72});
+// Materials
+const wall=new THREE.MeshStandardMaterial({color:0xefe6d2,roughness:.8});
+const wallShade=new THREE.MeshStandardMaterial({color:0xd9ccb0,roughness:.85});
+const maroon=new THREE.MeshStandardMaterial({color:0x8a2c2c,roughness:.7});
+const glass=new THREE.MeshStandardMaterial({color:0x3b6a8f,roughness:.15,metalness:.4});
+const stone=new THREE.MeshStandardMaterial({color:0xb9b2a3,roughness:.9});
+const grass=new THREE.MeshStandardMaterial({color:0x4f8a4a,roughness:.95});
+const path=new THREE.MeshStandardMaterial({color:0xc9b48a,roughness:.9});
+const gold=new THREE.MeshStandardMaterial({color:0xd4a72c,roughness:.4,metalness:.35});
+const trunk=new THREE.MeshStandardMaterial({color:0x5a3b22,roughness:.9});
 
-function box(p,x,y,z,sx,sy,sz,m=marble){
+function box(p,x,y,z,sx,sy,sz,m=wall){
  const o=new THREE.Mesh(new THREE.BoxGeometry(sx,sy,sz),m);o.position.set(x,y,z);p.add(o);return o;
 }
-function cyl(p,x,y,z,r1,r2,h,m=marble,n=32){
+function cyl(p,x,y,z,r1,r2,h,m=wall,n=24){
  const o=new THREE.Mesh(new THREE.CylinderGeometry(r1,r2,h,n),m);o.position.set(x,y,z);p.add(o);return o;
 }
-function dome(p,x,y,z,r,h,m=marble){
- const o=new THREE.Mesh(new THREE.SphereGeometry(r,40,20,0,Math.PI*2,0,Math.PI/2),m);
+function sphere(p,x,y,z,r,m=wall){
+ const o=new THREE.Mesh(new THREE.SphereGeometry(r,20,14),m);o.position.set(x,y,z);p.add(o);return o;
+}
+function dome(p,x,y,z,r,h,m=wall){
+ const o=new THREE.Mesh(new THREE.SphereGeometry(r,32,16,0,Math.PI*2,0,Math.PI/2),m);
  o.scale.y=h/r;o.position.set(x,y,z);p.add(o);return o;
 }
-function sphere(p,x,y,z,r,m=marble){
- const o=new THREE.Mesh(new THREE.SphereGeometry(r,24,16),m);o.position.set(x,y,z);p.add(o);return o;
+function tree(p,x,z){
+ cyl(p,x,.35,z,.05,.07,.5,trunk,10);
+ sphere(p,x,.8,z,.3,grass);
 }
-function arch(p,x,y,z,w,h,d,m=dark){
- box(p,x,y-h*.23,z,w,h*.56,d,m);
- const o=dome(p,x,y+h*.03,z,w/2,w*.52,m);o.rotation.z=Math.PI;return o;
+function signTexture(text){
+ const c=document.createElement("canvas");c.width=512;c.height=128;
+ const g=c.getContext("2d");
+ g.fillStyle="#8a2c2c";g.fillRect(0,0,512,128);
+ g.strokeStyle="#d4a72c";g.lineWidth=6;g.strokeRect(6,6,500,116);
+ g.fillStyle="#fff";g.font="bold 78px Arial";g.textAlign="center";g.textBaseline="middle";
+ g.fillText(text,256,68);
+ const t=new THREE.CanvasTexture(c);t.colorSpace=THREE.SRGBColorSpace;return t;
 }
-function finial(p,x,y,z){
- cyl(p,x,y,z,.035,.035,.55,gold,12);sphere(p,x,y+.31,z,.085,gold);
-}
-function minaret(p,x,z){
- const g=new THREE.Group();g.position.set(x,0,z);p.add(g);
- cyl(g,0,1.05,0,.28,.34,2.0,marble,28);
- cyl(g,0,2.08,0,.40,.40,.14,marble2);
- cyl(g,0,2.22,0,.27,.30,.20,marble);
- cyl(g,0,2.38,0,.36,.36,.13,marble2);
- cyl(g,0,2.56,0,.17,.20,.30,marble);
- dome(g,0,2.77,0,.22,.30,marble);
- finial(g,0,3.02,0);
-}
-function smallDome(p,x,z){
- dome(p,x,1.55,z,.50,.48,marble);finial(p,x,1.88,z);
-}
-function createMeenakshiTemple(){
-  const r=new THREE.Group();
 
-  // Temple platform
-  box(r,0,.10,0,8.2,.20,6.8,shadowMarble);
-  box(r,0,.25,0,7.7,.18,6.3,marble2);
-  box(r,0,.42,0,7.0,.16,5.7,marble);
-
-  // Main temple halls
-  box(r,0,1.15,0,4.6,1.55,3.6,marble);
-  box(r,0,1.92,0,3.7,.22,2.9,marble2);
-
-  // Central shrine
-  box(r,0,2.05,0,2.15,1.65,2.0,marble);
-  box(r,0,2.92,0,1.65,.22,1.55,marble2);
-  dome(r,0,3.15,0,1.05,.72,marble2);
-  finial(r,0,3.72,0);
-
-  // Four colorful gopuram towers
-  const gopurams=[
-    [-3.05,0,Math.PI/2],
-    [3.05,0,-Math.PI/2],
-    [0,-2.65,0],
-    [0,2.65,Math.PI]
-  ];
-
-  for(const [x,z,rot] of gopurams){
-    const g=new THREE.Group();
-    g.position.set(x,0,z);
-    g.rotation.y=rot;
-    r.add(g);
-
-    box(g,0,1.35,0,1.05,2.7,1.05,marble2);
-    box(g,0,2.75,0,.88,.18,.88,gold);
-    box(g,0,3.05,0,.78,.30,.78,marble);
-
-    // Stepped gopuram tiers
-    for(let i=0;i<5;i++){
-      const y=3.28+i*.34;
-      const s=0.72-i*.07;
-      box(g,0,y,0,s,.28,s,[marble,marble2,shadowMarble,dark][i%4]);
-      for(let j=-1;j<=1;j++){
-        sphere(g,j*.22,y+.15,0,.065,gold);
-      }
-    }
-    dome(g,0,4.98,0,.34,.38,marble2);
-    finial(g,0,5.32,0);
+// Rows of windows on the front (+z) face of a block
+function windows(p,cx,frontZ,width,floors,bays,baseY,floorH){
+ const step=width/bays;
+ for(let f=0;f<floors;f++){
+  for(let b=0;b<bays;b++){
+   const x=cx-width/2+step*(b+.5);
+   const y=baseY+floorH*(f+.5);
+   box(p,x,y,frontZ+.012,step*.5,floorH*.5,.03,glass);
+   box(p,x,y-floorH*.29,frontZ+.02,step*.6,.05,.07,stone); // sill
   }
-
-  // Pillared mandapam
-  for(const x of [-1.55,-.78,0,.78,1.55]){
-    for(const z of [-1.0,1.0]){
-      cyl(r,x,1.45,z,.10,.13,1.75,marble2,16);
-      sphere(r,x,2.34,z,.16,gold);
-    }
-  }
-
-  // Smaller roof shrines
-  for(const [x,z] of [[-1.65,-1.15],[1.65,-1.15],[-1.65,1.15],[1.65,1.15]]){
-    box(r,x,2.25,z,.48,.85,.48,marble2);
-    dome(r,x,2.78,z,.27,.30,marble);
-    finial(r,x,3.02,z);
-  }
-
-  // Courtyard and water feature
-  box(r,0,.72,0,5.9,.05,4.8,garden);
-  box(r,0,.76,0,.18,.035,4.8,water);
-  box(r,0,.77,0,5.9,.035,.18,water);
-
-  // Entrance steps and gateway
-  box(r,0,.78,2.35,2.5,.18,.55,marble2);
-  arch(r,0,1.45,2.62,1.15,1.35,.18,dark);
-
-  // Decorative bands
-  box(r,0,1.20,1.82,3.8,.055,.05,gold);
-  box(r,0,2.72,1.82,3.0,.045,.04,gold);
-
-  return r;
+ }
 }
 
+function createTCEBuilding(){
+ const r=new THREE.Group();
+
+ // Ground, lawn and entrance path
+ box(r,0,.05,0,9.4,.1,7.2,grass);
+ box(r,0,.11,2.75,1.4,.02,2.6,path);
+
+ // Plinth
+ box(r,0,.17,-.2,8.4,.14,3.0,stone);
+
+ // Left and right classroom wings (3 floors)
+ for(const s of [-1,1]){
+  const cx=s*2.75;
+  box(r,cx,1.45,-.2,3.5,2.6,2.4,wall);
+  box(r,cx,2.80,-.2,3.62,.14,2.52,maroon);          // roof slab
+  box(r,cx,2.93,-.2,3.62,.10,2.52,wallShade);         // parapet cap
+  box(r,cx,.55,1.02,3.55,.10,.06,wallShade);          // string course
+  box(r,cx,1.42,1.02,3.55,.10,.06,wallShade);
+  windows(r,cx,1.0,3.1,3,4,.2,.86);
+ }
+
+ // Central block (taller) with projecting portico
+ box(r,0,1.75,-.2,2.2,3.2,2.6,wall);
+ box(r,0,3.42,-.2,2.36,.16,2.76,maroon);
+ windows(r,0,1.1,1.7,2,3,1.9,.85);
+
+ // Portico: slab, columns, pediment
+ box(r,0,.32,1.55,2.4,.18,1.5,stone);                 // portico floor
+ box(r,0,1.72,1.7,2.4,.16,1.3,wallShade);            // portico roof
+ box(r,0,1.98,1.7,2.5,.36,1.4,wall);
+ for(const x of [-1.05,-.35,.35,1.05]){
+  cyl(r,x,.98,2.15,.09,.11,1.3,wall,20);
+  box(r,x,1.66,2.15,.26,.08,.26,stone);
+ }
+ // Entrance doors
+ box(r,0,.75,1.12,1.0,.95,.05,maroon);
+ box(r,0,.75,1.15,.04,.95,.03,gold);
+ // Steps
+ for(let i=0;i<3;i++)box(r,0,.14+i*.06,2.55+ (2-i)*.16,1.9,.06,.3,stone);
+
+ // Name board above portico
+ const sign=new THREE.Mesh(new THREE.PlaneGeometry(1.7,.42),
+   new THREE.MeshBasicMaterial({map:signTexture("TCE")}));
+ sign.position.set(0,2.0,2.42);r.add(sign);
+
+ // Central tower with dome and finial
+ box(r,0,3.95,-.2,1.5,.9,1.5,wall);
+ box(r,0,4.45,-.2,1.7,.14,1.7,maroon);
+ for(const x of [-.4,0,.4]) box(r,x,3.95,.56,.24,.5,.03,glass);
+ cyl(r,0,4.62,-.2,.62,.66,.2,wallShade,32);
+ dome(r,0,4.72,-.2,.6,.62,gold);
+ cyl(r,0,5.42,-.2,.03,.03,.5,gold,10);
+ sphere(r,0,5.7,-.2,.07,gold);
+
+ // Small trees
+ for(const [x,z] of [[-3.8,2.6],[3.8,2.6],[-1.9,2.9],[1.9,2.9],[-4.2,-2.2],[4.2,-2.2]]) tree(r,x,z);
+
+ return r;
+}
 
 function init(){
  scene=new THREE.Scene();
@@ -203,7 +189,7 @@ function init(){
  const sun=new THREE.DirectionalLight(0xffffff,2.5);sun.position.set(5,9,6);scene.add(sun);
  const fill=new THREE.DirectionalLight(0xdde9ff,.7);fill.position.set(-5,4,-4);scene.add(fill);
 
- monument=createMeenakshiTemple();scene.add(monument);monument.scale.setScalar(.28);
+ monument=createTCEBuilding();scene.add(monument);monument.scale.setScalar(.28);
 
  status.textContent="Desktop 3D Mode — drag to rotate, scroll to zoom.";
  renderer.setAnimationLoop((time,frame)=>{
@@ -256,7 +242,7 @@ function handleARFrame(frame){
      if(pose){
        monument.position.set(pose.transform.position.x,pose.transform.position.y,pose.transform.position.z);
        monument.visible=true;
-       status.textContent="Table detected — tap once to place the complete temple.";
+       status.textContent="Surface detected — tap once to place the TCE building.";
      }
    }
  }
@@ -291,7 +277,7 @@ window.addEventListener("pointerdown",e=>{
  if(e.target.tagName==="BUTTON")return;
  if(xrSession){
    placed=true;
-   status.textContent="Meenakshi Amman Temple placed. Use the controls to explore it.";
+   status.textContent="TCE building placed. Use the controls to explore it.";
    return;
  }
  dragging=true;lastX=e.clientX;lastY=e.clientY;
